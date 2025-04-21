@@ -70,10 +70,11 @@ function login() {
     <v-app-bar class="px-3">
       <v-spacer></v-spacer>
       <v-btn
-        :icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
         @click="onClick"
-        variant="plain"
-      ></v-btn>
+        :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+        text="Toggle Theme"
+        variant="tonal">
+      </v-btn>
     </v-app-bar>
 
     <!-- Main Content -->
@@ -137,7 +138,7 @@ function login() {
 
   <div class="text-center mt-4">
     <h5 class="text-subtitle-1">
-      Don’t have an account?
+      Don’t have account?
       <RouterLink to="/register" class="text-primary text-decoration-none">
         Click here to Register
       </RouterLink>
