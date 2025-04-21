@@ -79,7 +79,7 @@ function login() {
 
     <!-- Main Content -->
     <v-main>
-      <v-container class="d-flex justify-center align-center" style="min-height: 80vh;">
+      <v-container class="d-flex" style="min-height: 80vh;">
         <v-card class="pa-6" max-width="400">
           
           <!-- Logo + Title -->
@@ -148,6 +148,8 @@ function login() {
 
         </v-card>
       </v-container>
+
+      
     </v-main>
 
     <!-- Footer -->
