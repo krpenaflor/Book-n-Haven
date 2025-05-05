@@ -39,7 +39,7 @@ function navigateTo(route) {
           <v-list-item @click="navigateTo('saved')" prepend-icon="mdi-heart">Saved</v-list-item>
           <v-list-item @click="navigateTo('notifications')" prepend-icon="mdi-bell">Notification</v-list-item>
           <v-divider class="my-3"></v-divider>
-          <v-list-item @click="navigateTo('logout')" prepend-icon="mdi-logout">Log out</v-list-item>
+          <v-list-item @click="navigateTo('login')" prepend-icon="mdi-logout">Log out</v-list-item>
 
         </v-list>
       </div>

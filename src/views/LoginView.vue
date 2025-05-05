@@ -42,46 +42,46 @@ function validateForm() {
   return !errors.value.email && !errors.value.password
 }
 
-function login() {
+function login(role) {
   loginError.value = ''
   if (!validateForm()) return
 
-  const dummyUser = {
-    email: 'user@example.com',
-    password: 'password123',
-  }
+  const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
 
-  if (
-    email.value !== dummyUser.email ||
-    password.value !== dummyUser.password
-  ) {
-    loginError.value = "Account doesn't exist with entered email or password"
+  const matchedUser = storedUsers.find(
+    user =>
+      user.email.toLowerCase().trim() === email.value.toLowerCase().trim() &&
+      user.password === password.value &&
+      user.role === role
+  )
+
+  if (!matchedUser) {
+    loginError.value = "Account doesn't exist with entered email, password, or role"
     return
   }
 
-  router.push('/dashboard')
+  // Redirect based on role
+  router.push(role === 'owner' ? '/owner' : '/customer')
 }
 </script>
 
-
 <template>
   <v-app :theme="theme">
-    <!-- App Bar with Theme Toggle -->
+    <!-- App Bar -->
     <v-app-bar class="px-3">
       <v-spacer></v-spacer>
       <v-btn
         @click="onClick"
         :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
         text="Toggle Theme"
-        variant="tonal">
-      </v-btn>
+        variant="tonal"
+      />
     </v-app-bar>
 
     <!-- Main Content -->
     <v-main>
       <v-container class="d-flex" style="min-height: 80vh;">
         <v-card class="pa-6" max-width="400">
-          
           <!-- Logo + Title -->
           <div class="text-center mb-4">
             <v-img
@@ -95,70 +95,68 @@ function login() {
           </div>
 
           <!-- Login Form -->
-          <v-form @submit.prevent="login">
-  <v-text-field
-    v-model="email"
-    label="Email"
-    type="email"
-    variant="outlined"
-    :error-messages="errors.email"
-    @blur="validateEmail"
-    required
-  ></v-text-field>
+          <v-form @submit.prevent>
+            <v-text-field
+              v-model="email"
+              label="Email"
+              type="email"
+              variant="outlined"
+              :error-messages="errors.email"
+              @blur="validateEmail"
+              required
+            />
 
-  <v-text-field
-    v-model="password"
-    label="Password"
-    type="password"
-    variant="outlined"
-    :error-messages="errors.password"
-    @focus="validateEmail"
-    @blur="validatePassword"
-    required
-  ></v-text-field>
+            <v-text-field
+              v-model="password"
+              label="Password"
+              type="password"
+              variant="outlined"
+              :error-messages="errors.password"
+              @focus="validateEmail"
+              @blur="validatePassword"
+              required
+            />
 
-  <!-- Login Error Box -->
-  <div
-    v-if="loginError"
-    class="mt-3 px-4 py-2"
-    style="background-color: transparent; color: red; font-size: 0.875rem; font-family: 'Roboto', sans-serif; border-left: 3px solid red;"
-  >
-    {{ loginError }}
-  </div>
+            <!-- Error Box -->
+            <div
+              v-if="loginError"
+              class="mt-3 px-4 py-2"
+              style="background-color: transparent; color: red; font-size: 0.875rem; font-family: 'Roboto', sans-serif; border-left: 3px solid red;"
+            >
+              {{ loginError }}
+            </div>
 
-  <RouterLink to="customer"> <v-btn
-    class="mt-1"
-    type="submit"
-    block
-    color="primary"
-    variant="elevated"
-  >
-    Login as Customer
-  </v-btn></RouterLink>
-  <RouterLink to="owner"> <v-btn
-    class="mt-1"
-    type="submit"
-    block
-    color="primary"
-    variant="elevated"
-  >
-    Login as Owner
-  </v-btn></RouterLink>
+            <v-btn
+              class="mt-1"
+              block
+              color="primary"
+              variant="elevated"
+              @click="login('customer')"
+            >
+              Login as Customer
+            </v-btn>
 
-  <div class="text-center mt-4">
-    <h5 class="text-subtitle-1">
-      Don’t have account?
-      <RouterLink to="/register" class="text-primary text-decoration-none">
-        Click here to Register
-      </RouterLink>
-    </h5>
-  </div>
-</v-form>
+            <v-btn
+              class="mt-1"
+              block
+              color="primary"
+              variant="elevated"
+              @click="login('owner')"
+            >
+              Login as Owner
+            </v-btn>
 
+            <div class="text-center mt-4">
+              <h5 class="text-subtitle-1">
+                Don’t have an account?
+                <RouterLink to="/register" class="text-primary text-decoration-none">
+                  Click here to Register
+                </RouterLink>
+              </h5>
+            </div>
+          </v-form>
         </v-card>
       </v-container>
-
-      
     </v-main>
 
     <!-- Footer -->

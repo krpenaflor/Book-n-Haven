@@ -6,7 +6,6 @@ import OwnerDashboard from '@/views/OwnerDashboard.vue'
 import BookingsView from '@/views/BookingsView.vue'
 import SavedView from '@/views/SavedView.vue'
 import NotificationView from '@/views/NotificationView.vue'
-import LogoutView from '@/views/LogoutView.vue'
 
 
 const router = createRouter({
@@ -20,7 +19,6 @@ const router = createRouter({
   { path: '/bookings', name: 'bookings', component: BookingsView },
   { path: '/saved', name: 'saved', component: SavedView },
   { path: '/notification', name: 'notification', component: NotificationView },
-  { path: '/logout', name: 'logout', component: LogoutView },
   
   
 
