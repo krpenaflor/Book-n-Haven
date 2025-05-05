@@ -13,6 +13,37 @@ import * as directives from 'vuetify/directives'
 import App from './App.vue'
 import router from './router'
 
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient('https://your-project-url.supabase.co', 'public-anon-key')
+
+// Fetching data from a table
+async function getPosts() {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+
+  if (error) {
+    console.error('Error fetching posts:', error)
+  } else {
+    console.log('Fetched posts:', data)
+  }
+}
+
+// Saving a post
+async function savePost(postData) {
+  const { data, error } = await supabase
+    .from('posts')
+    .insert([postData])
+
+  if (error) {
+    console.error('Error saving post:', error)
+  } else {
+    console.log('Saved post:', data)
+  }
+}
+
+
 
 const app = createApp(App)
 
