@@ -2,15 +2,12 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
 const theme = ref('light')
-
 const firstName = ref('')
 const lastName = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-
 const errors = ref({
   firstName: '',
   lastName: '',
@@ -18,60 +15,61 @@ const errors = ref({
   password: '',
   confirmPassword: '',
 })
-
 const registerError = ref('')
+
+const router = useRouter()
 const validEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function onClick() {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
 }
 
-function validateFirstName() {
-  errors.value.firstName = firstName.value ? '' : 'First name is required'
-}
+function validateForm() {
+  errors.value = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  }
 
-function validateLastName() {
-  errors.value.lastName = lastName.value ? '' : 'Last name is required'
-}
+  let valid = true
 
-function validateEmail() {
+  if (!firstName.value) {
+    errors.value.firstName = 'First name is required'
+    valid = false
+  }
+
+  if (!lastName.value) {
+    errors.value.lastName = 'Last name is required'
+    valid = false
+  }
+
   if (!email.value) {
     errors.value.email = 'Email is required'
+    valid = false
   } else if (!validEmailRegex.test(email.value)) {
     errors.value.email = 'Email must be valid'
-  } else {
-    errors.value.email = ''
+    valid = false
   }
-}
 
-function validatePassword() {
   if (!password.value) {
     errors.value.password = 'Password is required'
+    valid = false
   } else if (password.value.length < 8) {
     errors.value.password = 'Password must be at least 8 characters'
-  } else {
-    errors.value.password = ''
+    valid = false
   }
-}
 
-function validateConfirmPassword() {
   if (!confirmPassword.value) {
     errors.value.confirmPassword = 'Please confirm your password'
-  } else if (confirmPassword.value !== password.value) {
+    valid = false
+  } else if (password.value !== confirmPassword.value) {
     errors.value.confirmPassword = 'Passwords do not match'
-  } else {
-    errors.value.confirmPassword = ''
+    valid = false
   }
-}
 
-function validateForm() {
-  validateFirstName()
-  validateLastName()
-  validateEmail()
-  validatePassword()
-  validateConfirmPassword()
-
-  return Object.values(errors.value).every(err => err === '')
+  return valid
 }
 
 function register() {
@@ -82,7 +80,6 @@ function register() {
   router.push('/login')
 }
 </script>
-
 
 
 
@@ -111,60 +108,52 @@ function register() {
                 contain
                 class="mb-4 mx-auto"
               />
-              <h1 class="text-h5 font-weight-bold">Welcome to BooknHaven</h1>
+              <h1 class="text-h5 font-weight-bold">Register to BooknHaven</h1>
             </div>
   
             <v-form @submit.prevent="register">
               <v-text-field
-  v-model="firstName"
-  label="First Name"
-  variant="outlined"
-  :error-messages="errors.firstName"
-  @blur="validateFirstName"
-  required
-/>
-
-<v-text-field
-  v-model="lastName"
-  label="Last Name"
-  variant="outlined"
-  :error-messages="errors.lastName"
-  @blur="validateLastName"
-  required
-/>
-
-<v-text-field
-  v-model="email"
-  label="Email"
-  type="email"
-  variant="outlined"
-  :error-messages="errors.email"
-  @blur="validateEmail"
-  required
-/>
-
-<v-text-field
-  v-model="password"
-  label="Password"
-  type="password"
-  variant="outlined"
-  :error-messages="errors.password"
-  @focus="validateEmail"
-  @blur="validatePassword"
-  required
-/>
-
-<v-text-field
-  v-model="confirmPassword"
-  label="Confirm Password"
-  type="password"
-  variant="outlined"
-  :error-messages="errors.confirmPassword"
-  @focus="validatePassword"
-  @blur="validateConfirmPassword"
-  required
-/>
-
+                v-model="firstName"
+                label="First Name"
+                variant="outlined"
+                :error-messages="errors.firstName"
+                required
+              ></v-text-field>
+  
+              <v-text-field
+                v-model="lastName"
+                label="Last Name"
+                variant="outlined"
+                :error-messages="errors.lastName"
+                required
+              ></v-text-field>
+  
+              <v-text-field
+                v-model="email"
+                label="Email"
+                type="email"
+                variant="outlined"
+                :error-messages="errors.email"
+                required
+              ></v-text-field>
+  
+              <v-text-field
+                v-model="password"
+                label="Password"
+                type="password"
+                variant="outlined"
+                :error-messages="errors.password"
+                required
+              ></v-text-field>
+  
+              <v-text-field
+                v-model="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                variant="outlined"
+                :error-messages="errors.confirmPassword"
+                required
+              ></v-text-field>
   
               <!-- Error Box -->
               <div
@@ -175,9 +164,13 @@ function register() {
                 {{ registerError }}
               </div>
   
-              <v-btn class="mt-4" type="submit" block color="primary" variant="elevated">
-                Register
-              </v-btn>
+              <RouterLink to="customer"> <v-btn class="mt-1" type="submit" block color="primary" variant="elevated">
+                Register as Customer
+              </v-btn> </RouterLink>
+              <RouterLink to="owner"> <v-btn class="mt-1" type="submit" block color="primary" variant="elevated">
+                Register as Owner
+              </v-btn> </RouterLink>
+
   
               <div class="text-center mt-4">
                 <h5 class="text-subtitle-1">

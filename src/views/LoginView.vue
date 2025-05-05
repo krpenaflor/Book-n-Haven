@@ -126,15 +126,24 @@ function login() {
     {{ loginError }}
   </div>
 
-  <v-btn
-    class="mt-4"
+  <RouterLink to="customer"> <v-btn
+    class="mt-1"
     type="submit"
     block
     color="primary"
     variant="elevated"
   >
-    Login
-  </v-btn>
+    Login as Customer
+  </v-btn></RouterLink>
+  <RouterLink to="owner"> <v-btn
+    class="mt-1"
+    type="submit"
+    block
+    color="primary"
+    variant="elevated"
+  >
+    Login as Owner
+  </v-btn></RouterLink>
 
   <div class="text-center mt-4">
     <h5 class="text-subtitle-1">
