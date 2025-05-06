@@ -76,9 +76,11 @@ const backgroundClass = computed(() =>
       <v-spacer></v-spacer>
       <v-btn
         @click="onClick"
-        :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+        :icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
         variant="elevated"
-      />
+        slim
+      >
+      </v-btn>
     </v-app-bar>
 
     <!-- Main Content -->
