@@ -1,10 +1,12 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: none;       /* Remove fixed max-width */
+  margin: 0;             /* Remove auto-centering */
+  padding: 0;            /* Let child components handle padding */
   font-weight: normal;
+  width: 100%;
+  height: 100%;
 }
 
 a,
@@ -21,15 +23,16 @@ a,
   }
 }
 
+/* Remove unnecessary grid layout that interferes with Vuetify's flex/grid */
 @media (min-width: 1024px) {
   body {
-    display: flex;
-    place-items: center;
+    /* Keep this if you want vertical centering, otherwise remove */
+    place-items: start;
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    display: block; /* Remove the grid layout */
+    padding: 0;
   }
 }
+
