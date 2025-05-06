@@ -43,26 +43,25 @@ function validateForm() {
   return !errors.value.email && !errors.value.password
 }
 
-function login(role) {
+async function login(role) {
   loginError.value = ''
   if (!validateForm()) return
 
-  const storedUsers = JSON.parse(localStorage.getItem('users') || '[]')
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value
+  })
 
-  const matchedUser = storedUsers.find(
-    user =>
-      user.email.toLowerCase().trim() === email.value.toLowerCase().trim() &&
-      user.password === password.value &&
-      user.role === role
-  )
-
-  if (!matchedUser) {
-    loginError.value = "Account doesn't exist with entered email, password, or role"
+  if (error) {
+    loginError.value = error.message
     return
   }
 
+  // OPTIONAL: fetch user role from a 'profiles' table or user metadata
+  // For now, we'll route based on manual role selection
   router.push(role === 'owner' ? '/owner' : '/customer')
 }
+
 
 const backgroundClass = computed(() =>
   theme.value === 'light' ? 'dashboard-light' : 'dashboard-dark'
