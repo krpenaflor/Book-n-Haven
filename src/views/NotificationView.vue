@@ -34,38 +34,23 @@ function navigateTo(route) {
         <div class="pa-4">
           <h2 class="mb-6 white--text">Book’nHaven</h2>
           <v-list dense nav>
-            <v-list-item @click="navigateTo('dashboard')" class="white--text" prepend-icon="mdi-view-dashboard">Dashboard
-              <v-list-item-title>Dashboard</v-list-item-title>
+            <v-list-item @click="navigateTo('customer')" class="white--text" prepend-icon="mdi-view-dashboard">Dashboard
+              <v-list-item-title></v-list-item-title>
             </v-list-item>
-
-            <v-list-item @click="navigateTo('account')" class="white--text" prepend-icon="mdi-account">Manage Account
-              <v-list-item-title>Manage Account</v-list-item-title>
-            </v-list-item>
-
             <v-list-item @click="navigateTo('bookings')" class="white--text" prepend-icon="mdi-calendar-check">Bookings
-              <v-list-item-title>Bookings</v-list-item-title>
+              <v-list-item-title></v-list-item-title>
             </v-list-item>
-
-            <v-list-item @click="navigateTo('reviews')" class="white--text" prepend-icon="mdi-star">Reviews
-              <v-list-item-title>Reviews</v-list-item-title>
-            </v-list-item>
-
             <v-list-item @click="navigateTo('saved')" class="white--text" prepend-icon="mdi-heart">Saved
-              <v-list-item-title>Saved</v-list-item-title>
+              <v-list-item-title></v-list-item-title>
             </v-list-item>
-
             <v-list-item @click="navigateTo('notification')" class="white--text" prepend-icon="mdi-bell">Notification
-              <v-list-item-title>Notification</v-list-item-title>
+              <v-list-item-title></v-list-item-title>
             </v-list-item>
 
             <v-divider class="my-3"></v-divider>
 
-            <v-list-item @click="navigateTo('logout')" class="white--text" prepend-icon="mdi-logout">Log out
-              <v-list-item-title>Log out</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item @click="navigateTo('help')" class="white--text" prepend-icon="mdi-help-circle-outline">Help
-              <v-list-item-title>Help</v-list-item-title>
+            <v-list-item @click="navigateTo('login')" class="white--text" prepend-icon="mdi-logout">Log out
+              <v-list-item-title></v-list-item-title>
             </v-list-item>
           </v-list>
         </div>

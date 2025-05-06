@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const theme = ref('light')
@@ -60,9 +60,12 @@ function login(role) {
     return
   }
 
-  // Redirect based on role
   router.push(role === 'owner' ? '/owner' : '/customer')
 }
+
+const backgroundClass = computed(() =>
+  theme.value === 'light' ? 'dashboard-light' : 'dashboard-dark'
+)
 </script>
 
 <template>
@@ -79,9 +82,9 @@ function login(role) {
     </v-app-bar>
 
     <!-- Main Content -->
-    <v-main>
-      <v-container class="d-flex" style="min-height: 80vh;">
-        <v-card class="pa-6" max-width="400">
+    <v-main :class="backgroundClass">
+      <v-container class="fill-height d-flex justify-center align-center">
+        <v-card class="pa-6 fixed-card" max-width="400" elevation="10">
           <!-- Logo + Title -->
           <div class="text-center mb-4">
             <v-img
@@ -165,3 +168,34 @@ function login(role) {
     </v-footer>
   </v-app>
 </template>
+
+<style scoped>
+.sidebar {
+  background: linear-gradient(to bottom, #6c4cd0, #8b6cd6);
+  height: 100vh;
+  color: white;
+}
+
+.fixed-list {
+  background-color: transparent !important;
+}
+
+.fixed-card {
+  background: linear-gradient(to right, white, white);
+  color: black;
+}
+
+.dashboard-light {
+  background: linear-gradient(to right, #f9f1ff, #eae3fa);
+  color: black;
+}
+
+.dashboard-dark {
+  background: linear-gradient(to right, #1c1b2f, #3e2f54);
+  color: white;
+}
+
+.v-list-item-title {
+  font-weight: 500;
+}
+</style>
