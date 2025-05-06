@@ -10,6 +10,8 @@ const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const registerError = ref('')
+const isPasswordVisible = ref(false)
+const isConfirmPasswordVisible = ref(false)
 const errors = ref({
   firstName: '',
   lastName: '',
@@ -150,22 +152,35 @@ async function register(role) {
               :error-messages="errors.email"
               required
             />
-            <v-text-field
-              v-model="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              :error-messages="errors.password"
-              required
-            />
-            <v-text-field
-              v-model="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              variant="outlined"
-              :error-messages="errors.confirmPassword"
-              required
-            />
+            
+
+
+
+
+<!-- Password Field -->
+<v-text-field
+  v-model="password"
+  label="Password"
+  variant="outlined"
+  :type="isPasswordVisible ? 'text' : 'password'"
+  :error-messages="errors.password"
+  :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+  required
+/>
+
+<!-- Confirm Password Field -->
+<v-text-field
+  v-model="confirmPassword"
+  label="Confirm Password"
+  variant="outlined"
+  :type="isConfirmPasswordVisible ? 'text' : 'password'"
+  :error-messages="errors.confirmPassword"
+  :append-inner-icon="isConfirmPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+  @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
+  required
+/>
+
 
             <!-- Error Box -->
             <div

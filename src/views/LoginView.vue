@@ -6,6 +6,8 @@ import { supabase } from '@/supabase'
 const theme = ref('light')
 const email = ref('')
 const password = ref('')
+const isPasswordVisible = ref(false)
+const isConfirmPasswordVisible = ref(false)
 const errors = ref({ email: '', password: '' })
 const loginError = ref('')
 
@@ -109,16 +111,17 @@ const backgroundClass = computed(() =>
               required
             />
 
-            <v-text-field
-              v-model="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              :error-messages="errors.password"
-              @focus="validateEmail"
-              @blur="validatePassword"
-              required
-            />
+            <!-- Password Field -->
+<v-text-field
+  v-model="password"
+  label="Password"
+  variant="outlined"
+  :type="isPasswordVisible ? 'text' : 'password'"
+  :error-messages="errors.password"
+  :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+  @click:append-inner="isPasswordVisible = !isPasswordVisible"
+  required
+/>
 
             <!-- Error Box -->
             <div
