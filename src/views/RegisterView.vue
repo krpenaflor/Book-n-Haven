@@ -107,11 +107,10 @@ async function register(role) {
       <v-spacer />
       <v-btn
         @click="onClick"
-        :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
-        text="Toggle Theme"
-        variant="tonal"
+        :icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+        variant="elevated"
+        slim
       >
-        Toggle Theme
       </v-btn>
     </v-app-bar>
 

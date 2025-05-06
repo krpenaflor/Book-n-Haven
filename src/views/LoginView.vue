@@ -7,7 +7,6 @@ const theme = ref('light')
 const email = ref('')
 const password = ref('')
 const isPasswordVisible = ref(false)
-const isConfirmPasswordVisible = ref(false)
 const errors = ref({ email: '', password: '' })
 const loginError = ref('')
 
@@ -78,8 +77,7 @@ const backgroundClass = computed(() =>
       <v-btn
         @click="onClick"
         :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
-        text="Toggle Theme"
-        variant="tonal"
+        variant="elevated"
       />
     </v-app-bar>
 
