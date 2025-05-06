@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { supabase } from '@/supabase'
 
 const theme = ref('light')
 const firstName = ref('')
@@ -72,35 +73,30 @@ function validateForm() {
   return valid
 }
 
-function register(role) {
+async function register(role) {
   registerError.value = ''
   if (!validateForm()) return
 
-  const users = JSON.parse(localStorage.getItem('users') || '[]')
+  const { data, error } = await supabase.auth.signUp({
+    email: email.value,
+    password: password.value,
+    options: {
+      data: {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        role: role,
+      },
+    },
+  })
 
-  const isDuplicate = users.some(
-    user => user.email.toLowerCase().trim() === email.value.toLowerCase().trim()
-  )
-
-  if (isDuplicate) {
-    registerError.value = 'Email is already registered'
+  if (error) {
+    registerError.value = error.message
     return
   }
 
-  const newUser = {
-    firstName: firstName.value,
-    lastName: lastName.value,
-    email: email.value.trim(),
-    password: password.value,
-    role,
-  }
-
-  users.push(newUser)
-  localStorage.setItem('users', JSON.stringify(users))
-
-  // Redirect
   router.push(role === 'owner' ? '/owner' : '/customer')
 }
+
 </script>
 
 <template>

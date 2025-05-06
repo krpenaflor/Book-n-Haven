@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { supabase } from '@/supabase'
 
 const theme = ref('light')
 const email = ref('')
