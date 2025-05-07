@@ -58,36 +58,27 @@ async function login(role) {
     return
   }
 
-  // OPTIONAL: fetch user role from a 'profiles' table or user metadata
-  // For now, we'll route based on manual role selection
   router.push(role === 'owner' ? '/owner' : '/customer')
 }
 
 
-const backgroundClass = computed(() =>
-  theme.value === 'light' ? 'dashboard-light' : 'dashboard-dark'
-)
 </script>
 
 <template>
   <v-app :theme="theme">
-    <!-- App Bar -->
-    <v-app-bar class="px-3">
+    <v-app-bar class="px-3" :color="theme === 'light'? 'purple-lighten-5': 'deep-purple-accent-2'" >
       <v-spacer></v-spacer>
       <v-btn
         @click="onClick"
         :icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
         variant="elevated"
         slim
-      >
-      </v-btn>
+      />
     </v-app-bar>
 
-    <!-- Main Content -->
-    <v-main :class="backgroundClass">
-      <v-container class="fill-height d-flex justify-center align-center">
-        <v-card class="pa-6 fixed-card" max-width="400" elevation="10">
-          <!-- Logo + Title -->
+    <v-main>
+      <v-container class="fill-height d-flex justify-center align-center" >
+        <v-card :color="theme === 'light'? 'deep-purple-accent-2': 'black'" :class="'pa-6'" max-width="400" elevation="10">
           <div class="text-center mb-4">
             <v-img
               src="/src/assets/logo.jpg"
@@ -99,7 +90,6 @@ const backgroundClass = computed(() =>
             <h1 class="text-h5 font-weight-bold">Welcome to BooknHaven</h1>
           </div>
 
-          <!-- Login Form -->
           <v-form @submit.prevent>
             <v-text-field
               v-model="email"
@@ -109,21 +99,20 @@ const backgroundClass = computed(() =>
               :error-messages="errors.email"
               @blur="validateEmail"
               required
+              class="custom-text-field"
+            />
+            <v-text-field
+              v-model="password"
+              label="Password"
+              variant="outlined"
+              :type="isPasswordVisible ? 'text' : 'password'"
+              :error-messages="errors.password"
+              :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+              @click:append-inner="isPasswordVisible = !isPasswordVisible"
+              required
+              class="custom-text-field"
             />
 
-            <!-- Password Field -->
-<v-text-field
-  v-model="password"
-  label="Password"
-  variant="outlined"
-  :type="isPasswordVisible ? 'text' : 'password'"
-  :error-messages="errors.password"
-  :append-inner-icon="isPasswordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-  @click:append-inner="isPasswordVisible = !isPasswordVisible"
-  required
-/>
-
-            <!-- Error Box -->
             <div
               v-if="loginError"
               class="mt-3 px-4 py-2"
@@ -133,24 +122,24 @@ const backgroundClass = computed(() =>
             </div>
 
             <v-btn
-              class="mt-1"
-              block
-              color="primary"
-              variant="elevated"
-              @click="login('customer')"
-            >
-              Login as Customer
-            </v-btn>
+  class="mt-1"
+  block
+  :color="theme === 'light'? 'purple-lighten-5': 'deep-purple-accent-2'"
+  variant="elevated"
+  @click="login('owner')"
+>
+  Login as Customer
+</v-btn>
 
             <v-btn
-              class="mt-1"
-              block
-              color="primary"
-              variant="elevated"
-              @click="login('owner')"
-            >
-              Login as Owner
-            </v-btn>
+  class="mt-1"
+  block
+  color="primary"
+  variant="elevated"
+  @click="login('owner')"
+>
+  Login as Owner
+</v-btn>
 
             <div class="text-center mt-4">
               <h5 class="text-subtitle-1">
@@ -165,40 +154,8 @@ const backgroundClass = computed(() =>
       </v-container>
     </v-main>
 
-    <!-- Footer -->
-    <v-footer app class="justify-start px-6">
+    <v-footer app class="justify-start px-6" :color="theme === 'light'? 'purple-lighten-5': 'deep-purple-accent-2'">
       2025 - BooknHaven
     </v-footer>
   </v-app>
 </template>
-
-<style scoped>
-.sidebar {
-  background: linear-gradient(to bottom, #6c4cd0, #8b6cd6);
-  height: 100vh;
-  color: white;
-}
-
-.fixed-list {
-  background-color: transparent !important;
-}
-
-.fixed-card {
-  background: linear-gradient(to right, white, white);
-  color: black;
-}
-
-.dashboard-light {
-  background: linear-gradient(to right, #f9f1ff, #eae3fa);
-  color: black;
-}
-
-.dashboard-dark {
-  background: linear-gradient(to right, #1c1b2f, #3e2f54);
-  color: white;
-}
-
-.v-list-item-title {
-  font-weight: 500;
-}
-</style>
