@@ -126,7 +126,7 @@ async function login(role) {
   block
   :color="theme === 'light'? 'purple-lighten-5': 'deep-purple-accent-2'"
   variant="elevated"
-  @click="login('owner')"
+  @click="login('customer')"
 >
   Login as Customer
 </v-btn>
