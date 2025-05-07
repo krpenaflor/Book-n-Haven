@@ -144,7 +144,7 @@ async function login(role) {
             <div class="text-center mt-4">
               <h5 class="text-subtitle-1">
                 Don’t have an account?
-                <RouterLink to="/register" class="text-primary text-decoration-none">
+                <RouterLink to="/register" :class="theme === 'light' ? 'text-black' : 'text-blue-darken-2'">
                   Click here to Register
                 </RouterLink>
               </h5>

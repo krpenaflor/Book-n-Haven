@@ -42,15 +42,7 @@
         <v-col cols="9" :class="[theme === 'dark' ? 'dashboard-dark' : 'dashboard-light', 'pa-6']">
           <div class="d-flex justify-space-between align-center mb-6">
             <h2 class="text-h4 font-weight-bold">Dashboard</h2>
-            <div class="d-flex align-center">
-              <v-avatar size="60" class="mr-2">
-                <v-img src="https://randomuser.me/api/portraits/women/44.jpg" />
-              </v-avatar>
-              <div>
-                <h3><strong>Anafe Garcia</strong></h3>
-                <h3>Customer</h3>
-              </div>
-            </div>
+            
           </div>
           <hr /><br /><br />
 
@@ -84,8 +76,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { supabase } from '@/supabase'
 
 const router = useRouter()
 const theme = ref('light')
@@ -118,6 +111,23 @@ const boardingHouses = ref([
     distance: '500m from Gaisano Mall',
   }
 ])
+
+const fullName = ref('')
+
+// Fetch user's full name from Supabase
+onMounted(async () => {
+  const { data: { user }, error } = await supabase.auth.getUser()
+
+  if (error || !user) {
+    fullName.value = 'Welcome User'
+    return
+  }
+
+  const firstName = user.user_metadata?.firstName || ''
+  const lastName = user.user_metadata?.lastName || ''
+  fullName.value = `${firstName} ${lastName}`.trim()
+})
+
 </script>
 
 <style scoped>

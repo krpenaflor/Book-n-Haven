@@ -96,7 +96,7 @@ async function register(role) {
     return
   }
 
-  router.push(role === 'owner' ? '/owner' : '/customer')
+  router.push(role === 'customer' ? '/customer' : '/owner')
 }
 
 </script>
@@ -214,7 +214,7 @@ async function register(role) {
             <div class="text-center mt-4">
               <h5 class="text-subtitle-1">
                 Already have an account?
-                <RouterLink to="/login" class="text-primary text-decoration-none">
+                <RouterLink to="/login"  :class="theme === 'light' ? 'text-black' : 'text-blue-darken-2'">
                   Click here to Login
                 </RouterLink>
               </h5>
