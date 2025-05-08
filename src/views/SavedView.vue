@@ -124,14 +124,14 @@ const user = ref({
 const savedBHs = ref([
   {
     name: 'GARCIA’S BH',
-    image: '/src/assets/logo.jpg',
+    image: 'img/logo.jpg',
     location: 'P-6 Ampayon, BXU',
     rating: '10',
     reviews: 585,
   },
   {
     name: 'BH NAME',
-    image: '/src/assets/logo.jpg',
+    image: 'img/logo.jpg',
     location: 'P-6 Ampayon, BXU',
     rating: '10',
     reviews: 585,

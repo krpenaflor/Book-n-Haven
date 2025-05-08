@@ -90,14 +90,14 @@ const bookings = ref([
     name: "GARCIA’S BH",
     status: 'Completed',
     price: 1500,
-    image: 'src/assets/logo.jpg',
+    image: 'img/logo.jpg',
   },
   {
     date: 'May 17',
     name: 'BH NAME',
     status: 'Cancelled',
     price: 2000,
-    image: 'src/assets/logo.jpg',
+    image: 'img/logo.jpg',
   },
 ])
 </script>
