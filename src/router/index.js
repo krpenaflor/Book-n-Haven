@@ -19,6 +19,12 @@ const router = createRouter({
   { path: '/bookings', name: 'bookings', component: BookingsView },
   { path: '/saved', name: 'saved', component: SavedView },
   { path: '/notification', name: 'notification', component: NotificationView },
+  {
+    path: '/details',
+    name: 'details',
+    component: () => import('@/views/SeeDetails.vue')
+  }
+  
   
   
 

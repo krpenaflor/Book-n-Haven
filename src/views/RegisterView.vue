@@ -96,30 +96,29 @@ async function register(role) {
     return
   }
 
-  router.push(role === 'owner' ? '/owner' : '/customer')
+  router.push(role === 'customer' ? '/customer' : '/owner')
 }
 
 </script>
 
 <template>
   <v-app :theme="theme">
-    <v-app-bar class="px-3">
-      <v-spacer />
+    <v-app-bar class="px-3" :color="theme === 'light'? 'purple-lighten-5': 'deep-purple-accent-2'" >
+      <v-spacer></v-spacer>
       <v-btn
         @click="onClick"
         :icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
         variant="elevated"
         slim
-      >
-      </v-btn>
+      />
     </v-app-bar>
 
     <v-main>
       <v-container class="d-flex justify-center align-center" style="min-height: 80vh;">
-        <v-card class="pa-6" max-width="400">
+        <v-card :color="theme === 'light'? 'deep-purple-accent-2': 'black'" class="pa-6" max-width="400">
           <div class="text-center mb-4">
             <v-img
-              src="/src/assets/logo.jpg"
+              src="img/logo.jpg"
               alt="Logo"
               max-height="100"
               contain
@@ -136,6 +135,7 @@ async function register(role) {
               :error-messages="errors.firstName"
               required
             />
+            
             <v-text-field
               v-model="lastName"
               label="Last Name"
@@ -151,6 +151,7 @@ async function register(role) {
               :error-messages="errors.email"
               required
             />
+            
             
 
 
@@ -193,7 +194,7 @@ async function register(role) {
             <v-btn
               class="mt-1"
               block
-              color="primary"
+              :color="theme === 'light'? 'purple-lighten-5': 'deep-purple-accent-2'"
               variant="elevated"
               @click="register('customer')"
             >
@@ -213,7 +214,7 @@ async function register(role) {
             <div class="text-center mt-4">
               <h5 class="text-subtitle-1">
                 Already have an account?
-                <RouterLink to="/login" class="text-primary text-decoration-none">
+                <RouterLink to="/login"  :class="theme === 'light' ? 'text-black' : 'text-blue-darken-2'">
                   Click here to Login
                 </RouterLink>
               </h5>
@@ -223,8 +224,9 @@ async function register(role) {
       </v-container>
     </v-main>
 
-    <v-footer app class="justify-start px-6">
+    <v-footer app class="justify-start px-6" :color="theme === 'light'? 'purple-lighten-5': 'deep-purple-accent-2'">
       2025 - BooknHaven
     </v-footer>
   </v-app>
 </template>
+

@@ -60,15 +60,7 @@ function navigateTo(route) {
         <v-col cols="9" class="pa-6" style="background: linear-gradient(to right, #f5e6f7, #d5c8f2);">
           <div class="d-flex justify-space-between align-center mb-6">
           <h2 class="text-h4 font-weight-bold">Notification</h2>
-          <div class="d-flex align-center">
-            <v-avatar size="60" class="mr-2">
-              <v-img src="https://randomuser.me/api/portraits/women/44.jpg" />
-            </v-avatar>
-            <div>
-              <h3><strong>Anafe Garcia</strong> </h3>
-             <h3>Customer</h3>
-            </div>
-          </div>
+          
         </div>
 <hr>  <br>
           <v-card class="mb-4" elevation="2" outlined>
