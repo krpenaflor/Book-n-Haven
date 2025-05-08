@@ -81,7 +81,7 @@ async function login(role) {
         <v-card :color="theme === 'light'? 'deep-purple-accent-2': 'black'" :class="'pa-6'" max-width="400" elevation="10">
           <div class="text-center mb-4">
             <v-img
-              src="/src/assets/logo.jpg"
+              src="img/logo.jpg"
               alt="Logo"
               max-height="100"
               contain
